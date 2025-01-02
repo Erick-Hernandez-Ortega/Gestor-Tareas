@@ -1,4 +1,4 @@
-# Gester de tareas
+# Gestor de tareas
 
 Este es un proyecto para gestionar tareas usando Vue.js, Vuetify y la API proporcionada. El objetivo es poder agregar, editar, eliminar y listar tareas a través de una interfaz de usuario utilizando **Vue.js** y **Vuetify**.
 
