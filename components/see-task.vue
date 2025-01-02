@@ -139,7 +139,7 @@ export default {
                 this.dialog = false;
             } catch (error) {
                 this.dialog = false;
-                alert('Error al editar la tarea: ' + error);
+                alert(`Error al editar la tarea: ${error}`);
             }
         },
     },

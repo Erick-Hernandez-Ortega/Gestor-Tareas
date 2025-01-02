@@ -52,7 +52,7 @@ export default {
                 this.tasks = data;
                 this.loading = false;
             } catch (error) {
-                alert(error);
+                alert(`Error al obtener las tareas: ${error}`);
             }
         },
     },

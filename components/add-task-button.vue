@@ -100,6 +100,7 @@ export default {
                 this.dialog = false;
             } catch (error) {
                 this.dialog = false;
+                alert(`Error al crear la tarea: ${error}`);
             }
         },
     },
