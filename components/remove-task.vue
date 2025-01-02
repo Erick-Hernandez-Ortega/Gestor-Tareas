@@ -46,18 +46,21 @@ export default {
         };
     },
     methods: {
-        removeTask() {
+        async removeTask() {
             this.loading = true;
             try {
-                fetch(`${constants.endpoint}/${this.taskId}?token=${constants.token}`, {
+                const response = await fetch(`${constants.endpoint}/${this.taskId}?token=${constants.token}`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Bearer ${constants.token}`,
                         'Content-Type': 'application/json',
                     },
-                }).then(() => {
-                    this.closeDialiog();
                 })
+                
+                if (response.ok) {
+                    this.$emit('task-removed', this.taskId);
+                    this.closeDialiog();
+                }
             } catch (error) {
                 alert(`Error al borrar la tarea: ${error}`);
                 this.closeDialiog();

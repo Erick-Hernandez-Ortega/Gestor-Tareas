@@ -15,7 +15,7 @@
                         <SeeTask :task-id="item.id" />
                     </v-list-item-action>
                     <v-list-item-action>
-                        <RemoveTask :task-id="item.id" />
+                        <RemoveTask :task-id="item.id" @task-removed="removeTask" />
                     </v-list-item-action>
                 </v-list-item>
             </v-list-item-group>
@@ -53,11 +53,17 @@ export default {
                     },
                 });
                 const data = await response.json();
-                // console.log(data, 'data');
+
                 this.tasks = data;
                 this.loading = false;
             } catch (error) {
                 alert(`Error al obtener las tareas: ${error}`);
+            }
+        },
+        removeTask(taskId) {
+            const index = this.tasks.findIndex(task => task.id === taskId);
+            if (index !== -1) {
+                this.tasks.splice(index, 1);
             }
         },
     },
