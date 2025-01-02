@@ -11,6 +11,9 @@
                     <v-list-item-content>
                         <v-list-item-title>{{ item.title }}</v-list-item-title>
                     </v-list-item-content>
+                    <v-list-item-action>
+                        <SeeTask :task-id="item.id" />
+                    </v-list-item-action>
                 </v-list-item>
             </v-list-item-group>
         </v-list>
@@ -19,9 +22,13 @@
 
 <script>
 import constants from './../assets/constants';
+import SeeTask from './see-task.vue';
 
 export default {
     name: "ListTask",
+    components: {
+        SeeTask
+    },
     data() {
         return {
             tasks: [],
@@ -41,7 +48,7 @@ export default {
                     },
                 });
                 const data = await response.json();
-                console.log(data, 'data');
+                // console.log(data, 'data');
                 this.tasks = data;
                 this.loading = false;
             } catch (error) {
