@@ -1,68 +1,98 @@
-# Gestor-Tareas
+# Gester de tareas
 
-## Build Setup
+Este es un proyecto para gestionar tareas usando Vue.js, Vuetify y la API proporcionada. El objetivo es poder agregar, editar, eliminar y listar tareas a través de una interfaz de usuario utilizando **Vue.js** y **Vuetify**.
+
+## Descripción
+
+La aplicación tiene los siguientes componentes:
+
+- **Lista de tareas**: Muestra todas las tareas con su título y estado (completada/no completada).
+- **Ver tarea**: Permite ver los detalles de una tarea en un modal.
+- **Eliminar tarea**: Permite eliminar una tarea.
+- **Agregar tarea**: Permite agregar nuevas tareas con varios campos (título, estado, fecha, etc.).
+
+## Tecnologías utilizadas
+
+- **Vue 2**: Framework para crear interfaces reactivas.
+- **Vuetify**: Librería de componentes para Vue.js, que proporciona una interfaz de usuario material design.
+- **Fetch API**: Para realizar solicitudes HTTP a la API.
+
+## Requisitos previos
+
+1. **Node.js**: Debes tener **Node.js** instalado en tu máquina. Puedes verificar si lo tienes ejecutando `node -v` en tu terminal.
+2. **npm o yarn**: El gestor de paquetes debe estar instalado.
+
+## Instalación
+
+1. Clona este repositorio:
 
 ```bash
-# install dependencies
-$ yarn install
+git clone https://github.com/Erick-Hernandez-Ortega/Gestor-Tareas
+```
+2. Navega a la carpeta del proyecto:
 
-# serve with hot reload at localhost:3000
-$ yarn dev
+```bash
+cd tu-repositorio
+```
+3. Instala las dependencias:
 
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
+```bash
+npm install o yarn install
 ```
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+## Estructura del Proyecto
 
-## Special Directories
+- **`/src`**: Carpeta donde se encuentran los componentes de Vue.js.
+  - **`/components/`**: Componentes como `ListTask`, `SeeTask`, `RemoveTask`.
+  - **`constants.js`**: Configuración con el `token` y `endpoint` de la API.
+- **`index.vue`**: Componente raíz donde se define el layout principal de la aplicación.
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+## Ejecución
 
-### `assets`
+Para ejecutar el proyecto de forma local:
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
+1. En el terminal, navega hasta la raíz de tu proyecto.
+2. Ejecuta el siguiente comando para iniciar el servidor de desarrollo:
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
+```bash
+yarn dev o npm run dev
+```
 
-### `components`
+## Componentes Principales
 
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
+### `ListTask.vue`
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
+Este componente es el encargado de mostrar todas las tareas. Contiene una lista de tareas utilizando el componente `v-list` de Vuetify, y dentro de cada tarea se muestra su estado (completada o no completada) con un ícono correspondiente. Además, se incluyen los botones para ver los detalles de la tarea y eliminarla. 
 
-### `layouts`
+Dentro de este componente se realiza una solicitud a la API para obtener todas las tareas y se actualiza el estado local `tasks` para renderizarlas. También se usa el componente `SeeTask` para ver los detalles de la tarea en un modal y `RemoveTask` para eliminarla.
 
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
+**Características principales:**
+- Muestra una lista de tareas.
+- Permite ver más detalles de una tarea.
+- Permite eliminar una tarea.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
+### `SeeTask.vue`
 
-### `pages`
+Este componente se muestra como un modal cuando se hace clic en el ícono de "ver tarea". Recibe un `taskId` como prop y realiza una solicitud GET a la API para obtener los detalles de esa tarea específica. Los detalles se muestran en el modal y permiten al usuario ver información más detallada.
 
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
+**Características principales:**
+- Recibe un `taskId` como prop.
+- Hace una solicitud a la API para obtener los detalles de la tarea.
+- Muestra los detalles de la tarea en un modal.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
+### `RemoveTask.vue`
 
-### `plugins`
+Este componente permite eliminar una tarea. Cuando se hace clic en el ícono de eliminar, se realiza una solicitud DELETE a la API para eliminar la tarea correspondiente utilizando su `taskId`. Después de eliminar la tarea, se actualiza la lista de tareas.
 
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
+**Características principales:**
+- Permite eliminar tareas al hacer clic en un ícono.
+- Hace una solicitud DELETE a la API para eliminar la tarea.
+- Actualiza la lista de tareas después de la eliminación.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
+### `constants.js`
 
-### `static`
+Este archivo contiene la configuración de la API, incluyendo el `token` de autenticación y la URL del endpoint de la API. Este archivo es utilizado en varios componentes para realizar las solicitudes a la API. 
 
-This directory contains your static files. Each file inside this directory is mapped to `/`.
-
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
-
-### `store`
-
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+**Contenido principal:**
+- Define el `token` para autenticación en la API.
+- Define la URL del `endpoint` de la API para realizar solicitudes.
