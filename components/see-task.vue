@@ -135,8 +135,10 @@ export default {
                     body: formData,
                 });
 
-                await response.json();
-                this.dialog = false;
+                if (response.ok) {
+                    this.$emit('task-updated', this.form);
+                    this.dialog = false;
+                }
             } catch (error) {
                 this.dialog = false;
                 alert(`Error al editar la tarea: ${error}`);

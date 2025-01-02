@@ -12,7 +12,7 @@
                         <v-list-item-title>{{ item.title }}</v-list-item-title>
                     </v-list-item-content>
                     <v-list-item-action>
-                        <SeeTask :task-id="item.id" />
+                        <SeeTask :task-id="item.id" @task-updated="updateTask" />
                     </v-list-item-action>
                     <v-list-item-action>
                         <RemoveTask :task-id="item.id" @task-removed="removeTask" />
@@ -64,6 +64,12 @@ export default {
             const index = this.tasks.findIndex(task => task.id === taskId);
             if (index !== -1) {
                 this.tasks.splice(index, 1);
+            }
+        },
+        updateTask(updatedTask) {
+            const index = this.tasks.findIndex(task => task.id === updatedTask.id);
+            if (index !== -1) {
+                this.$set(this.tasks, index, updatedTask);
             }
         },
     },
