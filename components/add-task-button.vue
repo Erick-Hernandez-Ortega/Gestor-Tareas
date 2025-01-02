@@ -5,7 +5,7 @@
                 Crear tarea
             </v-btn>
         </template>
-        <v-card>
+        <v-card :loading="loading">
             <v-card-title>
                 <span class="text-h5">Agregar una tarea</span>
             </v-card-title>
@@ -30,7 +30,7 @@
                             <v-text-field v-model="form.comments" label="Comentarios"></v-text-field>
                         </v-col>
                         <v-col cols="12">
-                            <v-combobox v-model="form.tags" hide-selected hint="Maximo de 5 tags" label="Agregar tags" multiple persistent-hint small-chips />
+                            <v-combobox v-model="form.tags" hide-selected hint="Presionar enter para agregar tag" label="Agregar tags" multiple persistent-hint small-chips />
                         </v-col>
                         <v-col cols="12">
                             <v-textarea v-model="form.description" label="Descripción" hint="Describe bien la tarea"></v-textarea>
@@ -69,6 +69,7 @@ export default {
                 description: '',
             },
             status: ['No Completada', 'Completada'],
+            loading: false,
         };
     },
     computed: {
@@ -78,6 +79,7 @@ export default {
     },
     methods: {
         async addTask() {
+            this.loading = true;
             const formData = new URLSearchParams();
 
             formData.append('token', constants.token);
@@ -98,8 +100,10 @@ export default {
 
                 await response.json();
                 this.dialog = false;
+                this.loading = false;
             } catch (error) {
                 this.dialog = false;
+                this.loading = false;
                 alert(`Error al crear la tarea: ${error}`);
             }
         },

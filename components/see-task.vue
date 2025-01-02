@@ -110,7 +110,7 @@ export default {
                 this.loading = false;
             } catch (error) {
                 this.dialog = false;
-                alert('Error al obtener la tarea: ' + error);
+                alert(`Error al obtener la tarea: ${error}`);
             }
         },
         async editTask() {
