@@ -99,13 +99,15 @@ export default {
                 const response = await fetch(constants.endpoint, {method: 'POST', headers, body: formData,});
 
                 await response.json();
-                this.dialog = false;
-                this.loading = false;
+                this.closeDialiog();
             } catch (error) {
-                this.dialog = false;
-                this.loading = false;
+                this.closeDialiog();
                 alert(`Error al crear la tarea: ${error}`);
             }
+        },
+        closeDialiog() {
+            this.dialog = false;
+            this.loading = false;
         },
     },
 };
