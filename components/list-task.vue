@@ -14,6 +14,9 @@
                     <v-list-item-action>
                         <SeeTask :task-id="item.id" />
                     </v-list-item-action>
+                    <v-list-item-action>
+                        <RemoveTask :task-id="item.id" />
+                    </v-list-item-action>
                 </v-list-item>
             </v-list-item-group>
         </v-list>
@@ -23,11 +26,13 @@
 <script>
 import constants from './../assets/constants';
 import SeeTask from './see-task.vue';
+import RemoveTask from './remove-task.vue';
 
 export default {
     name: "ListTask",
     components: {
-        SeeTask
+        SeeTask,
+        RemoveTask
     },
     data() {
         return {
